@@ -30,21 +30,18 @@ const processData = (err, data) => {
   }
 
   data.shift();
-  const userList = data.map((row) => new Population(...row));
+  const popList = data.map((row) => new Population(...row));
 
-  analyseUsers(userList);
-  //console.log(userList);
+  calculatePopulation(popList);
 };
 
 fs.createReadStream(csvFile).pipe(parse({ delimiter: "," }, processData));
 
-const analyseUsers = (userList) => {
-  const popSum = userList.reduce(
+const calculatePopulation = (popList) => {
+  const popSum = popList.reduce(
     (acc, val) => (acc += parseInt(val.population)),
     0
   );
-
-  //const averageAge = ageSum / userList.length;
   console.log("AAAAAAAAAAAAAA", popSum);
   return popSum;
 };
